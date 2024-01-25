@@ -1,0 +1,35 @@
+body {
+  width: 95vw;
+  height: 99vh;
+  overflow: hidden;
+  background-color: white;
+}
+
+.loader {
+  animation-name: spin;
+  animation-duration: 3000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sidebar-show {
+  opacity: 1;
+  transform: translateY(0%);
+}
+.sidebar-hide {
+  opacity: 0;
+  transform: translateY(5%);
+}
+
+.icon-box:hover {
+  background-color: #0002 !important;
+}
