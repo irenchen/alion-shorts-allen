@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useMemo } from 'react'
 
 import gsap from 'gsap'
 import Observer from 'gsap/Observer'
@@ -8,6 +8,7 @@ import { LOWER_GAP_RATIO, SHORT_HEIGHT, SHORT_WIDTH } from './shortConfig'
 import { useShortsContext } from './ShortsContext'
 import ShortPlayer, { ShortPlayerHandle } from './ShortPlayer'
 import ShortSideBar from './ShortSideBar'
+import ShortOverlay from './ShortOverlay'
 
 export type ShortContainerHandle = {
   play: () => void
@@ -80,6 +81,10 @@ const ShortContainer = ({ index, id }: ShortContainerProps) => {
     }
   }, [id, navigate])
 
+  const memoShortPlayer = useMemo(() => {
+    return <ShortPlayer ref={playerRef} id={id} />
+  }, [id])
+
   return (
     <div
       id={`frame-${id}`}
@@ -104,22 +109,9 @@ const ShortContainer = ({ index, id }: ShortContainerProps) => {
         onMouseEnter={() => playerRef.current?.toggleEnter()}
         onMouseLeave={() => playerRef.current?.toggleEnter()}
       >
-        <ShortPlayer ref={playerRef} id={id} />
+        {memoShortPlayer}
 
-        <div
-          id="frame"
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'transparent',
-          }}
-          onClick={() => {
-            playerRef.current?.togglePlay()
-          }}
-        />
+        <ShortOverlay onClick={() => playerRef.current?.togglePlay()} />
       </div>
       <ShortSideBar id={id} />
     </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import gsap from 'gsap'
 import Observer from 'gsap/Observer'
@@ -46,6 +46,12 @@ const ShortsCarousel = () => {
     }
   }, [navigate])
 
+  const memoShorts = useMemo(() => {
+    return shorts.map((short, idx) => (
+      <ShortContainer key={short} id={short} index={idx} />
+    ))
+  }, [shorts])
+
   return (
     <div
       style={{
@@ -60,9 +66,7 @@ const ShortsCarousel = () => {
         overflow: 'hidden',
       }}
     >
-      {shorts.map((short, idx) => (
-        <ShortContainer key={short} id={short} index={idx} />
-      ))}
+      {memoShorts}
 
       {!loading && shorts.length > 0 && <ShortsControls />}
       {!loading && shorts.length === 0 && <NoVideo />}
