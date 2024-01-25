@@ -64,8 +64,8 @@ const ShortPlayer = React.forwardRef<ShortPlayerHandle, ShortPlayerProps>(
       getMuted: () => mutedRef.current,
     }))
 
-    return (
-      <>
+    const youtubePlayer = useMemo(() => {
+      return (
         <YouTubePlayer
           url={url}
           controls={false}
@@ -94,6 +94,12 @@ const ShortPlayer = React.forwardRef<ShortPlayerHandle, ShortPlayerProps>(
             },
           }}
         />
+      )
+    }, [url, playing, muted, setPlayed, setMuted])
+
+    return (
+      <>
+        {youtubePlayer}
 
         {mouseEnter && (
           <MuteIcon muted={muted} onClick={() => setMuted(muted => !muted)} />
