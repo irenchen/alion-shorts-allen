@@ -74,6 +74,7 @@ const ShortPlayer = React.forwardRef<ShortPlayerHandle, ShortPlayerProps>(
           playing={playing}
           muted={muted}
           loop={true}
+          playsinline
           onProgress={({ played }) => {
             setPlayed(played)
           }}

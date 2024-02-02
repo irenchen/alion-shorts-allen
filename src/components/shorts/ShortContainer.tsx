@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo } from 'react'
+import { useRef, useEffect, useMemo, useLayoutEffect } from 'react'
 
 import gsap from 'gsap'
 import Observer from 'gsap/Observer'
@@ -35,7 +35,7 @@ const ShortContainer = ({ index, id }: ShortContainerProps) => {
   const offset = 2 * SHORT_HEIGHT * LOWER_GAP_RATIO
 
   const initialized = useRef(false)
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (initialized.current) return
 
     if (index === 0 || index === 1) {
